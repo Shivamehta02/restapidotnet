@@ -1,1 +1,9 @@
 .vs/RestApiCrudDemo/FileContentIndex/eb34fb4a-13cd-4371-8f3a-892d5a7b0f54.vsidx
+*.suo
+*.user
+_ReSharper.*
+bin
+obj
+packages
+.vs/
+
