@@ -3,7 +3,7 @@
 *.user
 _ReSharper.*
 bin
-obj/
+RestApiCrudDemo/obj
 packages
 .vs/
 
