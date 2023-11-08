@@ -67,8 +67,8 @@ public class MockEmployeeData : IEmployeeData
 
 	public List<Employee> GetEmployees()
 	{
-		return _context.Employees.ToList();
-		// return employees; //before sqlserver use only this line
+		//return _context.Employees.ToList();
+		 return employees; //before sqlserver use only this line
 		
 	}
 }

@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using RestApiCrudDemo.EmployeeData;
 using RestApiCrudDemo.Models;
+using RestApiCrudDemo.Query;
 
 namespace RestApiCrudDemo.Controllers
 {
@@ -9,15 +11,19 @@ namespace RestApiCrudDemo.Controllers
 	public class EmployeesController : ControllerBase
 	{
         private IEmployeeData _employeeData;
-        public EmployeesController(IEmployeeData employeeData)
+        private readonly ISender _mediator;
+        public EmployeesController(IEmployeeData employeeData, ISender mediator)
         {
             _employeeData = employeeData;
+			_mediator = mediator;
         }
 
         [HttpGet]
-		public IActionResult GetEmployees()
+		public  IActionResult GetEmployees()
         {
-            return Ok(_employeeData.GetEmployees());
+            var res =  _mediator.Send(new GetQuery());
+			return Ok(res);
+            //return Ok(_employeeData.GetEmployees());
         }
 
 		[HttpGet]
