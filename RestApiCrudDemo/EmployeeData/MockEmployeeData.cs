@@ -1,4 +1,5 @@
-﻿using RestApiCrudDemo.Data;
+﻿using Microsoft.AspNetCore.Mvc;
+using RestApiCrudDemo.Data;
 using RestApiCrudDemo.Models;
 
 namespace RestApiCrudDemo.EmployeeData;
@@ -9,12 +10,12 @@ public class MockEmployeeData : IEmployeeData
 	{
 		new Employee()
 		{
-			Id = Guid.NewGuid(),
+			Id = 1,
 			Name = "Test 1"
 		},
 		new Employee()
 		{
-			Id =  Guid.NewGuid(),
+			Id =  2,
 			Name = "Test 2"
 		}
 	};
@@ -24,13 +25,19 @@ public class MockEmployeeData : IEmployeeData
     {
 		_context = context;
     }
-    public Employee AddEmployee(Employee employee)
-	{
-		employee.Id = Guid.NewGuid();
-		_context.Employees.Add(employee);
-		_context.SaveChanges();
-		return employee;
-	}
+
+ //   public Employee AddEmployee(Employee employee) //for sql server
+	//{
+	//	employee.Id = Guid.NewGuid();
+	//	_context.Employees.Add(employee);
+	//	_context.SaveChanges();
+	//	return employee;
+	//}
+    public Employee AddEmployee(Employee emp)
+    {
+        employees.Add(emp);
+		return emp;
+    }
 
 	public void DeleteEmployee(Employee employee)
 	{
@@ -58,10 +65,12 @@ public class MockEmployeeData : IEmployeeData
 		return employee;
 	}
 
-	public Employee GetEmployee(Guid id)
+	public Employee GetEmployee(int id)
 	{
-		var employee = _context.Employees.Find(id);
-		return employee;
+		//var employee = _context.Employees.Find(id);
+		//return employee;
+		var emp = employees.SingleOrDefault(x => x.Id == id);
+		return emp;
 		//return employees.SingleOrDefault(x => x.Id == id);//before sqlserver use only this line
 	}
 
@@ -71,4 +80,5 @@ public class MockEmployeeData : IEmployeeData
 		 return employees; //before sqlserver use only this line
 		
 	}
+
 }

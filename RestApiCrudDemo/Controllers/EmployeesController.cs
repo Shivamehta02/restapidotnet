@@ -27,8 +27,8 @@ namespace RestApiCrudDemo.Controllers
         }
 
 		[HttpGet]
-		[Route("{id:guid}")]
-		public IActionResult GetEmployee(Guid id)
+		[Route("{id:int}")]
+		public IActionResult GetEmployee(int id)
 		{
 			var employee = _employeeData.GetEmployee(id);
 			if (employee == null)
@@ -41,14 +41,14 @@ namespace RestApiCrudDemo.Controllers
 		[HttpPost]
 		public IActionResult AddEmployee(Employee employee)
 		{
-			 _employeeData.AddEmployee(employee);
-			
-			return Ok(employee);
+            var res = _mediator.Send<Employee>(new AddEmpQuery(employee.Id, employee.Name));
+			// _employeeData.AddEmployee(employee);
+			return Ok(res);
 		}
 
 		[HttpDelete]
-		[Route("{id:guid}")]
-		public IActionResult DeleteEmployee(Guid id)
+		[Route("{id:int}")]
+		public IActionResult DeleteEmployee(int id)
 		{
 			var employee = _employeeData.GetEmployee(id);
 			if (employee != null)
@@ -60,8 +60,8 @@ namespace RestApiCrudDemo.Controllers
 		}
 
 		[HttpPut]
-		[Route("{id:guid}")]
-		public IActionResult UpdateEmployee(Guid id, Employee employee)
+		[Route("{id:int}")]
+		public IActionResult UpdateEmployee(int id, Employee employee)
 		{
 			var existemployee = _employeeData.GetEmployee(id);
 			if (existemployee != null)
